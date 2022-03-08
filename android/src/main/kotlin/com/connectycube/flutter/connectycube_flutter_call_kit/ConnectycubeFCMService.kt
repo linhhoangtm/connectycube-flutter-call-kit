@@ -43,11 +43,7 @@ class ConnectycubeFCMService : FirebaseMessagingService() {
     private fun processInviteCallEvent(applicationContext: Context, data: Map<String, String>) {
         val callId = data["session_id"]
 
-        if (callId == null || CALL_STATE_UNKNOWN != getCallState(
-                applicationContext,
-                callId
-            )
-        ) {
+       if (callId == null) {
             return
         }
 
@@ -61,7 +57,7 @@ class ConnectycubeFCMService : FirebaseMessagingService() {
         }
 
         val userInfo = data["user_info"] ?: JSONObject(emptyMap<String, String>()).toString()
-
+        Log.d("ConnectycubeFlutterCallKitPlugin", "callType: $callType, callInitiatorId: $callInitiatorId, callInitiatorName: $callInitiatorName, callOpponents: $callOpponents");
         if (callType == null || callInitiatorId == null || callInitiatorName == null || callOpponents.isEmpty()) {
             return
         }
